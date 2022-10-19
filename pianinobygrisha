@@ -1,0 +1,113 @@
+using System.Threading;
+
+
+namespace Pianino
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Пианино");
+            double[] defaultOctave = new double[12] { 523, 554, 587, 622, 659, 698, 740, 784, 830, 880, 932, 987};
+            double[] UsingOctave = defaultOctave;
+            bool nextCircle = true;
+            while (nextCircle)
+
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                switch (key.Key)
+                {
+                    case ConsoleKey.Escape: nextCircle = false; break;
+                    case ConsoleKey.F1:
+                        UsingOctave = OctaveChange(3, defaultOctave);
+                        Console.WriteLine("Октава 1");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.F2:
+                        UsingOctave = OctaveChange(4, defaultOctave);
+                        Console.WriteLine("Октава 2");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.F3:
+                        UsingOctave = OctaveChange(5, defaultOctave);
+                        Console.WriteLine("Октава 3");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.Q:
+                        noteOutput(UsingOctave[0], 300);
+                        Console.WriteLine("ДО");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.W:
+                        noteOutput(UsingOctave[1], 300);
+                        Console.WriteLine("РЕ");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.E:
+                        noteOutput(UsingOctave[2], 300);
+                        Console.WriteLine("МИ");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.R:
+                        noteOutput(UsingOctave[3], 300);
+                        Console.WriteLine("ФА");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.T:
+                        noteOutput(UsingOctave[4], 300);
+                        Console.WriteLine("СОЛЬ");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.Y:
+                        noteOutput(UsingOctave[5], 300);
+                        Console.WriteLine("ЛЯ");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.U:
+                        noteOutput(UsingOctave[6], 300);
+                        Console.WriteLine("СИ");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                    case ConsoleKey.I:
+                        noteOutput(UsingOctave[7], 300);
+                        Console.WriteLine("ДО");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+
+
+        static double[] OctaveChange(int FCount, double[] defaultOctave)
+        {
+            if (FCount > 3) { FCount = (int)Math.Pow(2, FCount); }
+            if (FCount == 3) { FCount = (int)Math.Pow(2, 2); }
+            double[] deftwoOctave = new double[10];
+            for (int i = 0; i < deftwoOctave.Length; i++)
+            {
+                deftwoOctave[i] = defaultOctave[i] * FCount;
+            }
+            return deftwoOctave;
+        }
+
+
+        static void noteOutput(double HZ, int duration)
+        {
+            int Hz = Convert.ToInt32(Math.Round(HZ));
+            Console.Beep(Hz, duration);
+        }
+    }
+}
+
